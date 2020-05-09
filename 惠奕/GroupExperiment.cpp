@@ -74,33 +74,65 @@ void Floyd(MGraphPtr &GPtr, WeightPtr &DPtr, WeightPtr &PathPtr) {
         }
     }
 }
-void FindMidSpot(WeightPtr PathPtr, int Start, int End) { //中间点
+void FindMidSpotLength(WeightPtr PathPtr, int Start, int End) { //中间点
     int MidSpot;
     MidSpot = PathPtr[Start][End].length;
     if (MidSpot == -1)
         return;
-    FindMidSpot(PathPtr, Start, MidSpot);
+    FindMidSpotLength(PathPtr, Start, MidSpot);
     printf("%d", MidSpot);
-    FindMidSpot(PathPtr, MidSpot, End);
+    FindMidSpotLength(PathPtr, MidSpot, End);
 }
-void DisPlayPath(WeightPtr PathPtr, int Start, int End) { //打印路径
+void DisPlayPathLength(WeightPtr PathPtr, int Start, int End) { //打印路径
     if (PathPtr[Start][End].length == -1) {
         printf("没有路径\n");
     } else {
         printf("%d", Start);
-        FindMidSpot(PathPtr, Start, End);
+        FindMidSpotLength(PathPtr, Start, End);
         printf("%d", End);
     }
 }
-void ReadGraph() {}
+void FindMidSpotTime(WeightPtr PathPtr, int Start, int End) { //中间点
+    int MidSpot;
+    MidSpot = PathPtr[Start][End].time;
+    if (MidSpot == -1)
+        return;
+    FindMidSpotTime(PathPtr, Start, MidSpot);
+    printf("%d", MidSpot);
+    FindMidSpotTime(PathPtr, MidSpot, End);
+}
+void DisPlayPathTime(WeightPtr PathPtr, int Start, int End) { //打印路径
+    if (PathPtr[Start][End].time == -1) {
+        printf("没有路径\n");
+    } else {
+        printf("%d", Start);
+        FindMidSpotTime(PathPtr, Start, End);
+        printf("%d", End);
+    }
+}
+void FindMidSpotFee(WeightPtr PathPtr, int Start, int End) { //中间点
+    int MidSpot;
+    MidSpot = PathPtr[Start][End].fee;
+    if (MidSpot == -1)
+        return;
+    FindMidSpotFee(PathPtr, Start, MidSpot);
+    printf("%d", MidSpot);
+    FindMidSpotFee(PathPtr, MidSpot, End);
+}
+void DisPlayPathFee(WeightPtr PathPtr, int Start, int End) { //打印路径
+    if (PathPtr[Start][End].fee == -1) {
+        printf("没有路径\n");
+    } else {
+        printf("%d", Start);
+        FindMidSpotFee(PathPtr, Start, End);
+        printf("%d", End);
+    }
+}
 int main() {
     WeightPtr PathPtr, DPtr;
     MGraphPtr GPtr;
     MGraph G;
     int Start = 0, End = 2;
-    // printf("请输入顶点个数:");
-    // scanf("%d", &n);
-    // GPtr = (MGraphPtr)malloc(sizeof(MGraph));
     GPtr = &G;
     CreateGraph(GPtr);
     Floyd(GPtr, DPtr, PathPtr);
