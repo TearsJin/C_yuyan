@@ -74,6 +74,14 @@ void CreateGraph(MGraphPtr &GPtr, Maps *MapPtr) { //新建地图
     printf("请输入地图中地点的数目:");
     scanf("%d", &GPtr->vexnum);
     printf("请输入地点名称:\n");
+    for (i = 0; i < MAXVexNum; i++) {
+        GPtr->Spots[i][0] = '\0';
+        for (j = 0; j < MAXVexNum; j++) {
+            GPtr->weightmatrix[i][j].length = -1;
+            GPtr->weightmatrix[i][j].time = -1;
+            GPtr->weightmatrix[i][j].fee = -1;
+        }
+    }
     for (i = 0; i < GPtr->vexnum; i++) {
         printf("请输入地点%d的名称:", i + 1);
         scanf("%s", GPtr->Spots[i]);
@@ -81,6 +89,12 @@ void CreateGraph(MGraphPtr &GPtr, Maps *MapPtr) { //新建地图
     }
     for (i = 0; i < GPtr->vexnum; i++) {
         for (j = 0; j < GPtr->vexnum; j++) {
+            if (j == i) {
+                GPtr->weightmatrix[i][j].length = 0;
+                GPtr->weightmatrix[i][j].time = 0;
+                GPtr->weightmatrix[i][j].fee = 0;
+                continue;
+            };
             printf("请输入%s到%s的路程、时间、费用:", GPtr->Spots[i],
                    GPtr->Spots[j]);
             scanf("%d %d %d", &GPtr->weightmatrix[i][j].length,
@@ -224,12 +238,15 @@ int main() {
         char ch = _getch();
         switch (ch) {
         case 'F':
+        case 'f':
             CreateGraph(GPtr, MapPtr);
             break;
         case 'A':
+        case 'a':
             ReadOrChangeMap(GPtr, MapPtr);
             break;
         case 'B':
+        case 'b':
             printf("请输入起点:");
             scanf("%s", Spot1);
             getchar();
@@ -242,6 +259,7 @@ int main() {
             printf("\n");
             break;
         case 'C':
+        case 'c':
             printf("请输入起点:");
             scanf("%s", Spot1);
             getchar();
@@ -254,6 +272,7 @@ int main() {
             printf("\n");
             break;
         case 'D':
+        case 'd':
             printf("请输入起点:");
             scanf("%s", Spot1);
             getchar();
@@ -266,7 +285,8 @@ int main() {
             printf("\n");
             break;
         case 'E':
-            printf("小组成员相关信息？");
+        case 'e':
+            printf("小组成员：蔡妮娜、宋俊、柯俊伟、李惠奕\n");
             return 0;
             break;
         default:
